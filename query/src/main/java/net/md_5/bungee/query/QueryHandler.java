@@ -66,6 +66,7 @@ public class QueryHandler extends SimpleChannelInboundHandler<DatagramPacket>
         if ( in.readUnsignedByte() != 0xFE || in.readUnsignedByte() != 0xFD )
         {
             bungee.getLogger().log( Level.WARNING, "Query - Incorrect magic!: {0}", msg.sender() );
+            ctx.close();
             return;
         }
 

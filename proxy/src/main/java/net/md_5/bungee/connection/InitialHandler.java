@@ -260,6 +260,17 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                     @Override
                     public void done(ProxyPingEvent pingResult, Throwable error)
                     {
+                        if (pingResult.getResponse() == null)
+                        {
+                            ch.close();
+                            return;
+                        }
+
+                        if (ch.isClosed())
+                        {
+                            return;
+                        }
+
                         Gson gson = handshake.getProtocolVersion() == ProtocolConstants.MINECRAFT_1_7_2 ? BungeeCord.getInstance().gsonLegacy : BungeeCord.getInstance().gson;
                         unsafe.sendPacket( new StatusResponse( gson.toJson( pingResult.getResponse() ) ) );
                         if ( bungee.getConnectionThrottle() != null )
@@ -289,7 +300,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
     {
         Preconditions.checkState( thisState == State.PING, "Not expecting PING" );
         unsafe.sendPacket( ping );
-        disconnect( "" );
+        ch.close();
     }
 
     @Override
@@ -334,7 +345,6 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                 break;
             case 2:
                 // Login
-                bungee.getLogger().log( Level.INFO, "{0} has connected", this );
                 thisState = State.USERNAME;
                 ch.setProtocol( Protocol.LOGIN );
 
@@ -400,11 +410,12 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                 if ( onlineMode )
                 {
                     unsafe().sendPacket( request = EncryptionUtil.encryptRequest() );
+                    thisState = State.ENCRYPT;
                 } else
                 {
                     finish();
                 }
-                thisState = State.ENCRYPT;
+
             }
         };
 
@@ -450,7 +461,10 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                     {
                         loginProfile = obj;
                         name = obj.getName();
-                        uniqueId = Util.getUUID( obj.getId() );
+                        if (uniqueId == null)
+                        {
+                            uniqueId = Util.getUUID( obj.getId() );
+                        }
                         finish();
                         return;
                     }
@@ -585,7 +599,7 @@ public class InitialHandler extends PacketHandler implements PendingConnection
     {
         if ( canSendKickMessage() )
         {
-            ch.delayedClose( new Kick( ComponentSerializer.toString( reason ) ) );
+            ch.close( new Kick( ComponentSerializer.toString( reason ) ) );
         } else
         {
             ch.close();
