@@ -4,42 +4,42 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.md-5</groupId>
-        <artifactId>bungeecord-parent</artifactId>
+        <groupId>gg.scala</groupId>
+        <artifactId>scalabungee-parent</artifactId>
         <version>1.17-R0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>net.md-5</groupId>
-    <artifactId>bungeecord-api</artifactId>
+    <groupId>gg.scala</groupId>
+    <artifactId>scalabungee-api</artifactId>
     <version>1.17-R0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>BungeeCord-API</name>
+    <name>ScalaBungee-API</name>
     <description>API implemented by the Elastic Portal Suite</description>
 
     <dependencies>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-chat</artifactId>
+            <groupId>gg.scala</groupId>
+            <artifactId>scalabungee-chat</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-config</artifactId>
+            <groupId>gg.scala</groupId>
+            <artifactId>scalabungee-config</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-event</artifactId>
+            <groupId>gg.scala</groupId>
+            <artifactId>scalabungee-event</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-protocol</artifactId>
+            <groupId>gg.scala</groupId>
+            <artifactId>scalabungee-protocol</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

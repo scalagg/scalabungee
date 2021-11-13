@@ -4,14 +4,14 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.md-5</groupId>
-        <artifactId>bungeecord-parent</artifactId>
+        <groupId>gg.scala</groupId>
+        <artifactId>scalabungee-parent</artifactId>
         <version>1.17-R0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>net.md-5</groupId>
-    <artifactId>bungeecord-module</artifactId>
+    <groupId>gg.scala</groupId>
+    <artifactId>scalabungee-module</artifactId>
     <version>1.17-R0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
@@ -35,8 +35,8 @@
 
     <dependencies>
         <dependency>
-            <groupId>net.md-5</groupId>
-            <artifactId>bungeecord-api</artifactId>
+            <groupId>gg.scala</groupId>
+            <artifactId>scalabungee-api</artifactId>
             <version>${project.version}</version>
             <scope>compile</scope>
         </dependency>

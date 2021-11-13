@@ -4,18 +4,18 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>net.md-5</groupId>
-        <artifactId>bungeecord-parent</artifactId>
+        <groupId>gg.scala</groupId>
+        <artifactId>scalabungee-parent</artifactId>
         <version>1.17-R0.1-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
 
-    <groupId>net.md-5</groupId>
-    <artifactId>bungeecord-native</artifactId>
+    <groupId>gg.scala</groupId>
+    <artifactId>scalabungee-native</artifactId>
     <version>1.17-R0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>BungeeCord-Native</name>
+    <name>ScalaBungee-Native</name>
     <description>Optional native code to speed up and enhance BungeeCord functionality.</description>
 
     <dependencies>

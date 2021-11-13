@@ -9,80 +9,24 @@ import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.LongSerializationPolicy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.netty.bootstrap.ServerBootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelException;
-import io.netty.channel.ChannelFuture;
-import io.netty.channel.ChannelFutureListener;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.EventLoopGroup;
+import io.netty.channel.*;
 import io.netty.util.ResourceLeakDetector;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.PrintStream;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Locale;
-import java.util.Map;
-import java.util.MissingResourceException;
-import java.util.PropertyResourceBundle;
-import java.util.ResourceBundle;
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.UUID;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReadWriteLock;
-import java.util.concurrent.locks.ReentrantLock;
-import java.util.concurrent.locks.ReentrantReadWriteLock;
-import java.util.logging.Handler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
-
 import jline.console.ConsoleReader;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.Synchronized;
-import net.md_5.bungee.api.CommandSender;
-import net.md_5.bungee.api.Favicon;
-import net.md_5.bungee.api.ProxyServer;
-import net.md_5.bungee.api.ReconnectHandler;
-import net.md_5.bungee.api.ServerPing;
-import net.md_5.bungee.api.Title;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.KeybindComponent;
-import net.md_5.bungee.api.chat.ScoreComponent;
-import net.md_5.bungee.api.chat.SelectorComponent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.TranslatableComponent;
+import net.md_5.bungee.api.*;
+import net.md_5.bungee.api.chat.*;
 import net.md_5.bungee.api.config.ConfigurationAdapter;
 import net.md_5.bungee.api.config.ListenerInfo;
 import net.md_5.bungee.api.config.ServerInfo;
 import net.md_5.bungee.api.connection.ProxiedPlayer;
 import net.md_5.bungee.api.plugin.Plugin;
 import net.md_5.bungee.api.plugin.PluginManager;
-import net.md_5.bungee.chat.ComponentSerializer;
-import net.md_5.bungee.chat.KeybindComponentSerializer;
-import net.md_5.bungee.chat.ScoreComponentSerializer;
-import net.md_5.bungee.chat.SelectorComponentSerializer;
-import net.md_5.bungee.chat.TextComponentSerializer;
-import net.md_5.bungee.chat.TranslatableComponentSerializer;
-import net.md_5.bungee.command.CommandBungee;
-import net.md_5.bungee.command.CommandEnd;
-import net.md_5.bungee.command.CommandIP;
-import net.md_5.bungee.command.CommandPerms;
-import net.md_5.bungee.command.CommandReload;
-import net.md_5.bungee.command.ConsoleCommandCompleter;
-import net.md_5.bungee.command.ConsoleCommandSender;
+import net.md_5.bungee.chat.*;
+import net.md_5.bungee.command.*;
 import net.md_5.bungee.compress.CompressFactory;
 import net.md_5.bungee.conf.Configuration;
 import net.md_5.bungee.conf.YamlConfig;
@@ -100,17 +44,27 @@ import net.md_5.bungee.util.CaseInsensitiveMap;
 import org.fusesource.jansi.AnsiConsole;
 import org.slf4j.impl.JDK14LoggerFactory;
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetSocketAddress;
+import java.net.SocketAddress;
+import java.text.MessageFormat;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.locks.ReadWriteLock;
+import java.util.concurrent.locks.ReentrantLock;
+import java.util.concurrent.locks.ReentrantReadWriteLock;
+import java.util.logging.Handler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * Main BungeeCord proxy class.
  */
 public class BungeeCord extends ProxyServer
 {
-
-    // scalabungee start
-    public static final Gson GSON = new GsonBuilder()
-            .setLongSerializationPolicy(LongSerializationPolicy.STRING)
-            .create();
-    // scalabungee end
 
     /**
      * Current operation state.
@@ -695,8 +649,7 @@ public class BungeeCord extends ProxyServer
     @Override
     public String getGameVersion()
     {
-        // scalabungee start - Seperating supported versions using `,`
-        return String.join(", ", ProtocolConstants.SUPPORTED_VERSIONS);
+        return String.join( ", " , ProtocolConstants.SUPPORTED_VERSIONS );
     }
 
     @Override
