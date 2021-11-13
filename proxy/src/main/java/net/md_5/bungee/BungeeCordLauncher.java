@@ -52,69 +52,9 @@ public class BungeeCordLauncher
             return;
         }
 
-        if ( BungeeCord.class.getPackage().getSpecificationVersion() != null && System.getProperty( "IReallyKnowWhatIAmDoingISwear" ) == null )
-        {
-            String version = BungeeCord.class.getPackage().getSpecificationVersion();
-
-            if ( version.equalsIgnoreCase( "unknown" ) )
-            {
-                System.err.println( "*** You are using a self compiled version ***" );
-                System.err.println( "*** Please make sure your server is up to date ***" );
-                System.err.println( "*** Using current version without warranty ***" );
-                System.err.println( "*** Server will start in 2 seconds ***" );
-                Thread.sleep( TimeUnit.SECONDS.toMillis( 2 ) );
-            } else
-            {
-                int currentVersion = Integer.parseInt( version );
-
-                try
-                {
-                    URL api = new URL( "https://api.github.com/repos/HexagonMC/BungeeCord/releases/latest" );
-                    URLConnection con = api.openConnection();
-                    // 15 second timeout at various stages
-                    con.setConnectTimeout( 15000 );
-                    con.setReadTimeout( 15000 );
-
-                    String tagName = null;
-
-                    try
-                    {
-                        JsonObject json = new JsonParser().parse( new InputStreamReader( con.getInputStream() ) ).getAsJsonObject();
-                        tagName = json.get( "tag_name" ).getAsString();
-
-                        int latestVersion = Integer.parseInt( tagName.substring( 1, tagName.length() ) );
-
-                        if ( latestVersion > currentVersion )
-                        {
-                            System.err.println( "*** Warning, this build is outdated ***" );
-                            System.err.println( "*** Please download a new build from https://github.com/HexagonMC/BungeeCord/releases ***" );
-                            System.err.println( "*** You will get NO support regarding this build ***" );
-                            System.err.println( "*** Server will start in 10 seconds ***" );
-                            Thread.sleep( TimeUnit.SECONDS.toMillis( 10 ) );
-                        }
-                    } catch ( JsonIOException e )
-                    {
-                        throw new IOException( e );
-                    } catch ( JsonSyntaxException e )
-                    {
-                        throw new IOException( e );
-                    } catch ( NumberFormatException e )
-                    {
-                        throw new IOException( e );
-                    }
-                } catch ( IOException e )
-                {
-                    System.err.println( "*** Can not test if up to date ***" );
-                    System.err.println( "*** Using current version without warranty ***" );
-                    System.err.println( "*** Server will start in 2 seconds ***" );
-                    Thread.sleep( TimeUnit.SECONDS.toMillis( 2 ) );
-                }
-            }
-        }
-
         BungeeCord bungee = new BungeeCord();
         ProxyServer.setInstance( bungee );
-        bungee.getLogger().info( "Enabled BungeeCord version " + bungee.getVersion() );
+        bungee.getLogger().info( "Enabled " + bungee.getName() + " version " + bungee.getVersion() );
         bungee.start();
 
         if ( !options.has( "noconsole" ) )
