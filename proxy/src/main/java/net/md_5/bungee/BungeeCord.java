@@ -45,6 +45,8 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.logging.Handler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+
 import jline.console.ConsoleReader;
 import lombok.Getter;
 import lombok.Setter;
@@ -539,7 +541,7 @@ public class BungeeCord extends ProxyServer
     @Override
     public String getName()
     {
-        return config.getCustomServerName();
+        return "ScalaBungee";
     }
 
     @Override
@@ -686,7 +688,8 @@ public class BungeeCord extends ProxyServer
     @Override
     public String getGameVersion()
     {
-        return ProtocolConstants.SUPPORTED_VERSIONS.get( 0 ) + "-" + ProtocolConstants.SUPPORTED_VERSIONS.get( ProtocolConstants.SUPPORTED_VERSIONS.size() - 1 );
+        // scalabungee start - Seperating supported versions using `,`
+        return String.join(", ", ProtocolConstants.SUPPORTED_VERSIONS);
     }
 
     @Override
