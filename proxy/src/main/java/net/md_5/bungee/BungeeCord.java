@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.LongSerializationPolicy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -104,6 +105,12 @@ import org.slf4j.impl.JDK14LoggerFactory;
  */
 public class BungeeCord extends ProxyServer
 {
+
+    // scalabungee start
+    public static final Gson GSON = new GsonBuilder()
+            .setLongSerializationPolicy(LongSerializationPolicy.STRING)
+            .create();
+    // scalabungee end
 
     /**
      * Current operation state.
