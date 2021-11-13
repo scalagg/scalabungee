@@ -188,6 +188,13 @@ public class InitialHandler extends PacketHandler implements PendingConnection
                 }
 
                 ServerPing legacy = result.getResponse();
+
+                if (legacy == null)
+                {
+                    ch.close();
+                    return;
+                }
+
                 String kickMessage;
 
                 if ( v1_5 )
