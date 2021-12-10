@@ -12,6 +12,8 @@ public class Bootstrap
             return;
         }
 
+        System.setProperty( "log4j2.formatMsgNoLookups", "true" );
+
         BungeeCordLauncher.main( args );
     }
 }
